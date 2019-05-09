@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +17,15 @@ namespace ChuckNorrisFacts2
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            var client = new RestClient("https://api.chucknorris.io");
+            var request = new RestRequest("/jokes/random?category=explicit", Method.GET);
+            IRestResponse response = client.Execute(request);
+            var fact = JsonConvert.DeserializeObject<Fact>(response);
+            MyLabel.Text = response.Content;
         }
     }
 }
