@@ -25,7 +25,6 @@ namespace ChuckNorrisFacts2
             _favorites = new List<string>();
             _categories = new List<string>();
             _categories.Add("Random");
-            _categories.Add("Favorites");
             _access = new FactsApiAccess();
             var categories = _access.GetCategories();
             _categories.AddRange(categories);
@@ -33,13 +32,14 @@ namespace ChuckNorrisFacts2
             CategoryPicker.SelectedIndex = 0;
         }
 
+        private void GetFavoriteClicked(object sender, EventArgs e)
+        {
+            FactLabel.Text = _favorites.Count == 0 ? "You have no favorites yet." : GetRandomFavorite();
+        }
         private void GetFactClicked(object sender, EventArgs e)
         {
-            var categoryIndex = CategoryPicker.SelectedIndex;
-            if (categoryIndex == 1)
-                FactLabel.Text = _favorites.Count == 0 ? "You have no favorites yet." : GetRandomFavorite();
-            else
-                FactLabel.Text = _access.GetFact(categoryIndex == 0 ? null : _favorites[categoryIndex]);
+            var isRandom = CategoryPicker.SelectedIndex == 0;
+            FactLabel.Text = _access.GetFact(isRandom ? null : CategoryPicker.SelectedItem.ToString());
         }
 
         private string GetRandomFavorite()
@@ -47,10 +47,14 @@ namespace ChuckNorrisFacts2
             return _favorites[_random.Next(0, _favorites.Count)];
         }
 
-        private void SaveFavoriteClicked(object sender, EventArgs e)
+        private void AddFavoriteClicked(object sender, EventArgs e)
         {
-
+            _favorites.Add(FactLabel.Text);
         }
 
+        public void HandleLoginChanged(bool isLoggedIn)
+        {
+            AddFavoriteButton.IsEnabled = GetFavoriteButton.IsEnabled = isLoggedIn;
+        }
     }
 }

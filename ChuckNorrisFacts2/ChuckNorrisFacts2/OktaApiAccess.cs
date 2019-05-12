@@ -10,7 +10,7 @@ namespace ChuckNorrisFacts2
 {
     public class OktaApiAccess
     {
-        public static async Task<bool> DoAuth(string email, string password)
+        public static async Task<bool> Login(string email, string password)
         {
             var config = new OktaClientConfiguration { OktaDomain = "https://dev-660868.okta.com", };
             var authClient = new AuthenticationClient(config);
