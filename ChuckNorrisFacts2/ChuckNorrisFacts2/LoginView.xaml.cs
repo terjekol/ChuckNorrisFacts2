@@ -35,12 +35,13 @@ namespace ChuckNorrisFacts2
 
         private void SignupClicked(object sender, EventArgs e)
         {
-
+            Device.OpenUri(new Uri("https://dev-660868.okta.com/signin/register"));
         }
         private void LogoutClicked(object sender, EventArgs e)
         {
             LoginPanel.IsVisible = true;
             LogoutPanel.IsVisible = false;
+            if (LoginChanged != null) LoginChanged(this, false);
         }
 
         public event EventHandler<bool> LoginChanged;
