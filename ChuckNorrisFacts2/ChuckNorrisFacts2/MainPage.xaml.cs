@@ -19,14 +19,5 @@ namespace ChuckNorrisFacts2
         {
             InitializeComponent();
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            var client = new RestClient("https://api.chucknorris.io");
-            var request = new RestRequest("/jokes/random?category=explicit", Method.GET);
-            IRestResponse response = client.Execute(request);
-            var fact = JsonConvert.DeserializeObject<Fact>(response.Content);
-            MyLabel.Text = fact.value;
-        }
     }
 }

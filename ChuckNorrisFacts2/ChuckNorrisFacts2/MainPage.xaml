@@ -4,12 +4,6 @@
              xmlns:local="clr-namespace:ChuckNorrisFacts2"
              x:Class="ChuckNorrisFacts2.MainPage">
 
-    <StackLayout x:Name="MyLayout">
-        <!-- Place new controls here -->
-        <Label x:Name="MyLabel" Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-        <Button Text="Get fact" Clicked="Button_Clicked"></Button>
-    </StackLayout>
-
+    <local:FactsView></local:FactsView>
+    <local:LoginView></local:LoginView>
 </ContentPage>
